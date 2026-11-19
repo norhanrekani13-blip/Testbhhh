@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeLens — Complete App Source Code (index.html)</title>
+  <style>
+    :root {
+      --bg: #0b101b;
+      --surface: #121927;
+      --surface2: #1a2438;
+      --border: #2b3954;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --cyan: #22d3ee;
+      --emerald: #34d399;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(11, 16, 27, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand h1 { margin: 0; font-size: 20px; color: #fff; }
+    .brand p { margin: 2px 0 0; font-size: 12px; color: var(--cyan); font-family: monospace; }
+    .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    input.search {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      min-width: 240px;
+      font-size: 13px;
+    }
+    button.btn {
+      background: var(--cyan);
+      color: #00262e;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    button.btn-sec {
+      background: var(--surface2);
+      color: var(--emerald);
+      border: 1px solid var(--border);
+    }
+    main { max-width: 1160px; margin: 0 auto; padding: 20px; }
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .toc h2 { margin: 0 0 10px; font-size: 15px; color: var(--cyan); }
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 8px;
+    }
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-family: monospace;
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .toc a:hover { border-color: var(--cyan); color: var(--cyan); }
+    .file-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+    .file-head {
+      background: var(--surface2);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      gap: 10px;
+    }
+    .file-path {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      color: var(--emerald);
+      font-weight: 600;
+      word-break: break-all;
+    }
+    pre {
+      margin: 0;
+      padding: 14px;
+      overflow-x: auto;
+      background: #070b13;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #dbeafe;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>CodeLens — Full Android App Source Code</h1>
+    <p>com.aistudio.codelens.apkxqr • Kotlin + Jetpack Compose + Material 3</p>
+  </div>
+  <div class="controls">
+    <input class="search" type="text" placeholder="Filter files (e.g. MainActivity, Engine, xml)..." oninput="filterCodeFiles(this.value)" />
+    <button class="btn" onclick="downloadThisHtml()">Download index.html</button>
+  </div>
+</header>
+<main>
+  <section class="toc">
+    <h2>Project Files Included in index.html</h2>
+    <div class="toc-grid" id="tocList"></div>
+  </section>
+  <div id="filesContainer">
+
+    <article class="file-card" data-path="settings.gradle.kts">
+      <div class="file-head"><span class="file-path">settings.gradle.kts</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>pluginManagement {
+  repositories {
+    google {
+      content {
+        includeGroupByRegex("com\\.android.*")
+        includeGroupByRegex("com\\.google.*")
+        includeGroupByRegex("androidx.*")
+      }
+    }
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
+plugins { id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0" }
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
+rootProject.name = "CodeLens"
+
+include(":app")</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/AndroidManifest.xml">
+      <div class="file-head"><span class="file-path">app/src/main/AndroidManifest.xml</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+
+    &lt;queries&gt;
+        &lt;intent&gt;
+            &lt;action android:name="android.intent.action.MAIN" /&gt;
+            &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+        &lt;/intent&gt;
+    &lt;/queries&gt;
+
+    &lt;application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"&gt;
+
+        &lt;activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MyApplication"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.SEND" /&gt;
+                &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+                &lt;data android:mimeType="application/vnd.android.package-archive" /&gt;
+                &lt;data android:mimeType="application/octet-stream" /&gt;
+                &lt;data android:mimeType="application/zip" /&gt;
+                &lt;data android:mimeType="application/x-zip-compressed" /&gt;
+            &lt;/intent-filter&gt;
+
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.VIEW" /&gt;
+                &lt;category android:name="android.intent.category.DEFAULT" /&gt;
+                &lt;category android:name="android.intent.category.BROWSABLE" /&gt;
+                &lt;data android:scheme="content" /&gt;
+                &lt;data android:scheme="file" /&gt;
+                &lt;data android:mimeType="application/vnd.android.package-archive" /&gt;
+                &lt;data android:mimeType="application/zip" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"&gt;
+            &lt;meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" /&gt;
+        &lt;/provider&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/res/values/strings.xml">
+      <div class="file-head"><span class="file-path">app/src/main/res/values/strings.xml</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>&lt;resources&gt;
+    &lt;string name="app_name"&gt;CodeLens&lt;/string&gt;
+    &lt;string name="cd_hero_banner"&gt;CodeLens APK and code inspector studio banner&lt;/string&gt;
+    &lt;string name="cd_app_icon"&gt;Application icon&lt;/string&gt;
+    &lt;string name="cd_back"&gt;Back&lt;/string&gt;
+    &lt;string name="cd_download_html"&gt;Download HTML report&lt;/string&gt;
+    &lt;string name="cd_download_zip"&gt;Download ZIP source bundle&lt;/string&gt;
+    &lt;string name="cd_share_report"&gt;Share exported report&lt;/string&gt;
+    &lt;string name="cd_search"&gt;Search&lt;/string&gt;
+    &lt;string name="cd_clear_search"&gt;Clear search&lt;/string&gt;
+    &lt;string name="cd_toggle_language"&gt;Switch language&lt;/string&gt;
+    &lt;string name="cd_toggle_theme"&gt;Toggle dark or light theme&lt;/string&gt;
+&lt;/resources&gt;</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/res/xml/file_paths.xml">
+      <div class="file-head"><span class="file-path">app/src/main/res/xml/file_paths.xml</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;paths xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+    &lt;cache-path name="exported_reports" path="exports/" /&gt;
+    &lt;files-path name="saved_reports" path="exports/" /&gt;
+&lt;/paths&gt;</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/ui/theme/Color.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/ui/theme/Color.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.ui.theme
+
+import androidx.compose.ui.graphics.Color
+
+val ObsidianBg = Color(0xFF0B101B)
+val ObsidianSurface = Color(0xFF121927)
+val ObsidianSurfaceVariant = Color(0xFF1A2438)
+val ObsidianOutline = Color(0xFF2B3954)
+
+val CyanPrimary = Color(0xFF22D3EE)
+val CyanOnPrimary = Color(0xFF00262E)
+val CyanContainer = Color(0xFF0E4759)
+val CyanOnContainer = Color(0xFFA5F3FC)
+
+val EmeraldSecondary = Color(0xFF34D399)
+val EmeraldOnSecondary = Color(0xFF00291B)
+val EmeraldContainer = Color(0xFF0B4634)
+val EmeraldOnContainer = Color(0xFFA7F3D0)
+
+val AmberTertiary = Color(0xFFFBBF24)
+val AmberContainer = Color(0xFF4A3406)
+val AmberOnContainer = Color(0xFFFDE68A)
+
+val ErrorDark = Color(0xFFF87171)
+val ErrorContainerDark = Color(0xFF5A1D1D)
+
+val DaylightBg = Color(0xFFF4F7FB)
+val DaylightSurface = Color(0xFFFFFFFF)
+val DaylightSurfaceVariant = Color(0xFFE8EEF7)
+val DaylightOutline = Color(0xFFCBD5E1)
+
+val TealPrimaryLight = Color(0xFF0891B2)
+val TealContainerLight = Color(0xFFCFFAFE)
+val TealOnContainerLight = Color(0xFF083344)
+
+val EmeraldSecondaryLight = Color(0xFF059669)
+val EmeraldContainerLight = Color(0xFFD1FAE5)
+val EmeraldOnContainerLight = Color(0xFF064E3B)
+
+val AmberTertiaryLight = Color(0xFFD97706)
+val AmberContainerLight = Color(0xFFFEF3C7)
+val AmberOnContainerLight = Color(0xFF78350F)
+
+val BadgeKotlin = Color(0xFFA855F7)
+val BadgeJava = Color(0xFFF97316)
+val BadgeHtml = Color(0xFFEC4899)
+val BadgeFlutter = Color(0xFF38BDF8)
+val BadgeReact = Color(0xFF22D3EE)
+val BadgeNative = Color(0xFF10B981)
+val BadgeUnity = Color(0xFF6366F1)
+val BadgeXml = Color(0xFFF59E0B)</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/ui/theme/Type.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/ui/theme/Type.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.ui.theme
+
+import androidx.compose.material3.Typography
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.example.R
+
+val SpaceGroteskFontFamily = FontFamily(
+    Font(R.font.space_grotesk, FontWeight.Normal),
+    Font(R.font.space_grotesk, FontWeight.Medium),
+    Font(R.font.space_grotesk, FontWeight.Bold)
+)
+
+val PlusJakartaFontFamily = FontFamily(
+    Font(R.font.plus_jakarta_sans, FontWeight.Normal),
+    Font(R.font.plus_jakarta_sans, FontWeight.Medium),
+    Font(R.font.plus_jakarta_sans, FontWeight.SemiBold),
+    Font(R.font.plus_jakarta_sans, FontWeight.Bold)
+)
+
+val JetBrainsMonoFontFamily = FontFamily(
+    Font(R.font.jetbrains_mono, FontWeight.Normal),
+    Font(R.font.jetbrains_mono, FontWeight.Medium)
+)
+
+val AppTypography = Typography(
+    displaySmall = TextStyle(fontFamily = SpaceGroteskFontFamily, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 38.sp),
+    headlineMedium = TextStyle(fontFamily = SpaceGroteskFontFamily, fontWeight = FontWeight.Bold, fontSize = 24.sp, lineHeight = 30.sp),
+    headlineSmall = TextStyle(fontFamily = SpaceGroteskFontFamily, fontWeight = FontWeight.SemiBold, fontSize = 20.sp, lineHeight = 26.sp),
+    titleLarge = TextStyle(fontFamily = SpaceGroteskFontFamily, fontWeight = FontWeight.SemiBold, fontSize = 18.sp, lineHeight = 24.sp),
+    titleMedium = TextStyle(fontFamily = PlusJakartaFontFamily, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, lineHeight = 22.sp),
+    titleSmall = TextStyle(fontFamily = PlusJakartaFontFamily, fontWeight = FontWeight.Medium, fontSize = 14.sp, lineHeight = 20.sp),
+    bodyLarge = TextStyle(fontFamily = PlusJakartaFontFamily, fontWeight = FontWeight.Normal, fontSize = 15.sp, lineHeight = 22.sp),
+    bodyMedium = TextStyle(fontFamily = PlusJakartaFontFamily, fontWeight = FontWeight.Normal, fontSize = 13.sp, lineHeight = 19.sp),
+    bodySmall = TextStyle(fontFamily = PlusJakartaFontFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp, lineHeight = 16.sp),
+    labelLarge = TextStyle(fontFamily = PlusJakartaFontFamily, fontWeight = FontWeight.SemiBold, fontSize = 14.sp, lineHeight = 20.sp),
+    labelMedium = TextStyle(fontFamily = JetBrainsMonoFontFamily, fontWeight = FontWeight.Medium, fontSize = 11.sp, lineHeight = 15.sp),
+    labelSmall = TextStyle(fontFamily = JetBrainsMonoFontFamily, fontWeight = FontWeight.Normal, fontSize = 10.sp, lineHeight = 14.sp)
+)</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/ui/theme/Theme.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/ui/theme/Theme.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.ui.theme
+
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+
+private val DarkColorScheme = darkColorScheme(
+    primary = CyanPrimary, onPrimary = CyanOnPrimary, primaryContainer = CyanContainer, onPrimaryContainer = CyanOnContainer,
+    secondary = EmeraldSecondary, onSecondary = EmeraldOnSecondary, secondaryContainer = EmeraldContainer, onSecondaryContainer = EmeraldOnContainer,
+    tertiary = AmberTertiary, onTertiary = Color(0xFF281900), tertiaryContainer = AmberContainer, onTertiaryContainer = AmberOnContainer,
+    background = ObsidianBg, onBackground = Color(0xFFE2E8F0), surface = ObsidianSurface, onSurface = Color(0xFFF1F5F9),
+    surfaceVariant = ObsidianSurfaceVariant, onSurfaceVariant = Color(0xFF94A3B8), outline = ObsidianOutline, outlineVariant = Color(0xFF1E293B),
+    error = ErrorDark, onError = Color(0xFF450A0A), errorContainer = ErrorContainerDark, onErrorContainer = Color(0xFFFECACA)
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = TealPrimaryLight, onPrimary = Color.White, primaryContainer = TealContainerLight, onPrimaryContainer = TealOnContainerLight,
+    secondary = EmeraldSecondaryLight, onSecondary = Color.White, secondaryContainer = EmeraldContainerLight, onSecondaryContainer = EmeraldOnContainerLight,
+    tertiary = AmberTertiaryLight, onTertiary = Color.White, tertiaryContainer = AmberContainerLight, onTertiaryContainer = AmberOnContainerLight,
+    background = DaylightBg, onBackground = Color(0xFF0F172A), surface = DaylightSurface, onSurface = Color(0xFF0F172A),
+    surfaceVariant = DaylightSurfaceVariant, onSurfaceVariant = Color(0xFF475569), outline = DaylightOutline, outlineVariant = Color(0xFFE2E8F0),
+    error = Color(0xFFDC2626), onError = Color.White, errorContainer = Color(0xFFFEE2E2), onErrorContainer = Color(0xFF7F1D1D)
+)
+
+val AppShapes = Shapes(small = RoundedCornerShape(10.dp), medium = RoundedCornerShape(16.dp), large = RoundedCornerShape(22.dp), extraLarge = RoundedCornerShape(28.dp))
+
+@Composable
+fun CodeLensTheme(darkTheme: Boolean = true, content: @Composable () -> Unit) {
+    MaterialTheme(colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme, typography = AppTypography, shapes = AppShapes, content = content)
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/model/ApkModels.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/model/ApkModels.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.model
+
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+
+data class InstalledAppItem(
+    val appName: String,
+    val packageName: String,
+    val versionName: String,
+    val apkPath: String,
+    val apkSizeBytes: Long,
+    val icon: Drawable?
+)
+
+enum class FileCategory { ALL, WEB_HTML, XML_MANIFEST, DEX_CODE, NATIVE_LIB, ASSETS_MEDIA }
+
+data class ApkFileEntry(
+    val path: String,
+    val name: String,
+    val sizeBytes: Long,
+    val compressedSizeBytes: Long,
+    val category: FileCategory,
+    val extension: String,
+    val isBinaryXml: Boolean = false
+)
+
+enum class TechBadgeType { KOTLIN, JAVA, COMPOSE, HTML_WEB, FLUTTER, REACT_NATIVE, NATIVE_CPP, UNITY, XML_VIEWS }
+
+data class TechDetection(
+    val name: String,
+    val subtitleKu: String,
+    val subtitleEn: String,
+    val confidencePercent: Int,
+    val badgeType: TechBadgeType,
+    val isPrimary: Boolean,
+    val evidence: List&lt;String&gt;
+)
+
+data class DexPackageSummary(val packageName: String, val classCount: Int, val sampleClasses: List&lt;String&gt;)
+
+data class DexFileSummary(
+    val fileName: String, val dexVersion: String, val fileSizeBytes: Int,
+    val stringCount: Int, val typeCount: Int, val fieldCount: Int, val methodCount: Int, val classCount: Int
+)
+
+data class DexAnalysisResult(
+    val dexFiles: List&lt;DexFileSummary&gt;, val totalClasses: Int, val totalMethods: Int, val totalStrings: Int,
+    val topPackages: List&lt;DexPackageSummary&gt;, val detectedFrameworks: Set&lt;String&gt;,
+    val sampleClassOutline: String, val interestingUrls: List&lt;String&gt;
+)
+
+data class ApkAnalysisResult(
+    val apkFilePath: String, val appName: String, val packageName: String, val versionName: String,
+    val versionCode: Long, val minSdk: Int, val targetSdk: Int, val apkSizeBytes: Long,
+    val appIconBitmap: Bitmap?, val techDetections: List&lt;TechDetection&gt;, val decodedManifestXml: String,
+    val permissions: List&lt;String&gt;, val activities: List&lt;String&gt;, val services: List&lt;String&gt;,
+    val nativeAbis: List&lt;String&gt;, val entries: List&lt;ApkFileEntry&gt;, val dexAnalysis: DexAnalysisResult,
+    val generatedHtmlReport: String
+)
+
+sealed interface FilePreviewContent {
+    data object Loading : FilePreviewContent
+    data class TextCode(val path: String, val text: String, val isHtml: Boolean = false, val isNoticeTruncated: Boolean = false) : FilePreviewContent
+    data class ImagePreview(val path: String, val bitmap: Bitmap, val width: Int, val height: Int) : FilePreviewContent
+    data class BinarySummary(val path: String, val headerSummary: String) : FilePreviewContent
+    data class Error(val message: String) : FilePreviewContent
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/i18n/AppStrings.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/i18n/AppStrings.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.i18n
+
+enum class AppLanguage { KURDISH, ENGLISH }
+
+data class AppStrings(
+    val appName: String,
+    val langToggleLabel: String,
+    val heroTitle: String,
+    val heroSubtitle: String,
+    val pickApkButton: String,
+    val inspectSelfButton: String,
+    val installedAppsTitle: String,
+    val searchAppsHint: String,
+    val noAppsFound: String,
+    val analyzingTitle: String,
+    val analyzingSubtitle: String,
+    val backButton: String,
+    val downloadHtml: String,
+    val downloadZip: String,
+    val shareReport: String,
+    val tabTechStack: String,
+    val tabFilesCode: String,
+    val tabHtmlOutput: String,
+    val tabManifestDex: String,
+    val builtWithTitle: String,
+    val evidenceLabel: String,
+    val appInfoTitle: String,
+    val packageLabel: String,
+    val versionLabel: String,
+    val sdkLabel: String,
+    val sizeLabel: String,
+    val filesCountLabel: String,
+    val permissionsTitle: String,
+    val activitiesTitle: String,
+    val searchFilesHint: String,
+    val filterAll: String,
+    val filterWebHtml: String,
+    val filterXmlManifest: String,
+    val filterDexCode: String,
+    val filterNative: String,
+    val filterAssetsMedia: String,
+    val noFilesMatch: String,
+    val htmlPreviewMode: String,
+    val htmlRawMode: String,
+    val copyCode: String,
+    val copiedToast: String,
+    val downloadSuccess: String,
+    val downloadError: String,
+    val saveAs: String,
+    val manifestTitle: String,
+    val dexSummaryTitle: String,
+    val packagesTitle: String,
+    val inspectAction: String,
+    val loadingFile: String,
+    val binaryOrLargeNotice: String,
+    val downloadThisFile: String,
+    val totalClassesLabel: String,
+    val totalMethodsLabel: String,
+    val totalStringsLabel: String,
+    val errorAnalyzeTitle: String,
+    val retryOrBack: String
+)
+
+fun stringsFor(language: AppLanguage): AppStrings = when (language) {
+    AppLanguage.KURDISH -&gt; AppStrings(
+        appName = "CodeLens", langToggleLabel = "EN",
+        heroTitle = "کۆد و زمانێ بەرنامان ببینە ب HTML",
+        heroSubtitle = "فایلێ APK یان بەرنامێ ناڤ موبایلێ هەلبژێرە (وەک QuickEdit) دا بزانیت ب چ زمان هاتیە دروستکرن و هەمی کۆد ب HTML و فایلان داگریت.",
+        pickApkButton = "هەلبژارتنا فایلێ APK / ZIP", inspectSelfButton = "تاقیکرنا بەرنامەی",
+        installedAppsTitle = "بەرنامێن ناڤ موبایلێ", searchAppsHint = "گەریان ل بەرنامەکی (نموونە: QuickEdit)...",
+        noAppsFound = "چ بەرنامە ب ڤی ناڤی نەهاتن دیتن.",
+        analyzingTitle = "شیکارکرنا کۆد و فایلێن بەرنامەی...",
+        analyzingSubtitle = "پشکنینا Manifest و DEX و زمانێ بەرنامەسازیێ و دروستکرنا HTML",
+        backButton = "زڤڕین", downloadHtml = "داگرتنا HTML", downloadZip = "داگرتنا ZIP", shareReport = "هنارتن",
+        tabTechStack = "زمانێ کۆدێ", tabFilesCode = "فایل و کۆد", tabHtmlOutput = "کۆد ب HTML", tabManifestDex = "Manifest &amp; DEX",
+        builtWithTitle = "ئەڤ بەرنامە ب ڤان زمانان هاتیە دروستکرن", evidenceLabel = "بەڵگەیێن ناڤ فایلان",
+        appInfoTitle = "زانیاریێن بەرنامەی", packageLabel = "پاکێج (Package)", versionLabel = "ڤێرژن",
+        sdkLabel = "SDK (Min / Target)", sizeLabel = "قەبارێ APK", filesCountLabel = "ژمارا فایلان",
+        permissionsTitle = "دەستهەڵات (Permissions)", activitiesTitle = "شاشە و چالاکی (Activities)",
+        searchFilesHint = "گەریان ل ناڤ فایلان (html, xml, dex, so)...",
+        filterAll = "هەمی", filterWebHtml = "HTML / Web", filterXmlManifest = "XML / Manifest",
+        filterDexCode = "DEX / کۆد", filterNative = "Native (.so)", filterAssetsMedia = "Assets / وێنە",
+        noFilesMatch = "چ فایل نەهاتن دیتن.", htmlPreviewMode = "نیشاندانا HTML", htmlRawMode = "کۆدێ HTML",
+        copyCode = "کۆپی", copiedToast = "کۆد هاتە کۆپیکرن",
+        downloadSuccess = "ب سەرکەفتی هاتە داگرتن ناڤ Downloads/CodeLens",
+        downloadError = "خەلەتی د داگرتنێ دا چێبوو", saveAs = "هەڵگرتن ل جهەکێ دی",
+        manifestTitle = "AndroidManifest.xml (ڤەکرنا کۆدی)", dexSummaryTitle = "شیکارکرنا فایلێن DEX و کلاسان",
+        packagesTitle = "پاکێج و کلاسێن سەرەکی", inspectAction = "پشکنین", loadingFile = "ڤەکرنا فایلی...",
+        binaryOrLargeNotice = "ئەڤ فایلە باینەری یان مەزنە؛ زانیاریێن پێکهاتێ و هەیدەرێ وێ هاتنە نیشاندان.",
+        downloadThisFile = "داگرتنا ڤی فایلی", totalClassesLabel = "کلاس", totalMethodsLabel = "میتۆد",
+        totalStringsLabel = "دەق (Strings)", errorAnalyzeTitle = "نەشیا فایلێ APK شیکار بکەت", retryOrBack = "زڤڕین"
+    )
+    AppLanguage.ENGLISH -&gt; AppStrings(
+        appName = "CodeLens", langToggleLabel = "کوردی",
+        heroTitle = "Inspect App Code &amp; Export HTML",
+        heroSubtitle = "Send or pick any APK or installed app (like QuickEdit) to detect what language &amp; framework built it, browse every internal file, and download HTML or ZIP bundles.",
+        pickApkButton = "Pick APK / ZIP File", inspectSelfButton = "Test Demo Scan",
+        installedAppsTitle = "Installed Apps on Device", searchAppsHint = "Search installed apps (e.g. QuickEdit)...",
+        noAppsFound = "No matching apps found.",
+        analyzingTitle = "Decompiling &amp; Analyzing App...",
+        analyzingSubtitle = "Decoding Manifest, inspecting DEX bytecode, detecting languages &amp; generating HTML",
+        backButton = "Back", downloadHtml = "Download HTML", downloadZip = "Download ZIP", shareReport = "Share",
+        tabTechStack = "Tech Stack", tabFilesCode = "Files &amp; Code", tabHtmlOutput = "HTML Report", tabManifestDex = "Manifest &amp; DEX",
+        builtWithTitle = "Detected Languages &amp; Frameworks", evidenceLabel = "Detected Evidence",
+        appInfoTitle = "App Metadata", packageLabel = "Package", versionLabel = "Version",
+        sdkLabel = "SDK (Min / Target)", sizeLabel = "APK Size", filesCountLabel = "Total Entries",
+        permissionsTitle = "Permissions", activitiesTitle = "Declared Activities",
+        searchFilesHint = "Filter files (html, xml, dex, so)...",
+        filterAll = "All", filterWebHtml = "HTML / Web", filterXmlManifest = "XML / Manifest",
+        filterDexCode = "DEX / Code", filterNative = "Native (.so)", filterAssetsMedia = "Assets / Media",
+        noFilesMatch = "No matching files inside APK.", htmlPreviewMode = "HTML Preview", htmlRawMode = "Raw HTML Code",
+        copyCode = "Copy", copiedToast = "Copied to clipboard",
+        downloadSuccess = "Saved to Downloads/CodeLens", downloadError = "Could not save file", saveAs = "Save As...",
+        manifestTitle = "Decoded AndroidManifest.xml", dexSummaryTitle = "DEX Bytecode &amp; Class Breakdown",
+        packagesTitle = "Top Packages &amp; Classes", inspectAction = "Inspect", loadingFile = "Reading file...",
+        binaryOrLargeNotice = "Binary or large asset — showing structural header &amp; readable outline.",
+        downloadThisFile = "Download File", totalClassesLabel = "Classes", totalMethodsLabel = "Methods",
+        totalStringsLabel = "Strings", errorAnalyzeTitle = "Unable to analyze APK", retryOrBack = "Go Back"
+    )
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/engine/BinaryXmlDecoder.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/engine/BinaryXmlDecoder.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.engine
+
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.nio.charset.StandardCharsets
+
+object BinaryXmlDecoder {
+    private const val CHUNK_AXML_FILE = 0x00080003
+    private const val CHUNK_STRING_POOL = 0x001C0001
+    private const val CHUNK_RESOURCE_IDS = 0x00080180
+    private const val CHUNK_START_NAMESPACE = 0x00100100
+    private const val CHUNK_END_NAMESPACE = 0x00100101
+    private const val CHUNK_START_TAG = 0x00100102
+    private const val CHUNK_END_TAG = 0x00100103
+    private const val CHUNK_TEXT = 0x00100104
+
+    fun isBinaryXml(bytes: ByteArray): Boolean {
+        if (bytes.size &lt; 8) return false
+        val magic = ByteBuffer.wrap(bytes, 0, 4).order(ByteOrder.LITTLE_ENDIAN).int
+        return magic == CHUNK_AXML_FILE || (magic and 0xFFFF) == 0x0003
+    }
+
+    fun decode(bytes: ByteArray): String {
+        if (bytes.isEmpty()) return ""
+        if (!isBinaryXml(bytes)) return String(bytes, StandardCharsets.UTF_8)
+        return try {
+            val buf = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
+            val fileType = buf.int
+            if ((fileType and 0xFFFF) != 0x0003) return String(bytes, StandardCharsets.UTF_8)
+            val fileSize = buf.int.coerceAtMost(bytes.size)
+            var strings: List&lt;String&gt; = emptyList()
+            val namespaces = mutableMapOf&lt;String, String&gt;()
+            val pendingNs = mutableListOf&lt;Pair&lt;String, String&gt;&gt;()
+            val out = StringBuilder("&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;\n")
+            var indent = 0
+            while (buf.position() + 8 &lt;= fileSize) {
+                val chunkStart = buf.position()
+                val chunkType = buf.int
+                val chunkSize = buf.int
+                if (chunkSize &lt; 8 || chunkStart + chunkSize &gt; bytes.size) break
+                when (chunkType) {
+                    CHUNK_STRING_POOL, 0x0001 -&gt; strings = parseStringPool(bytes, chunkStart, chunkSize)
+                    CHUNK_RESOURCE_IDS -&gt; {}
+                    CHUNK_START_NAMESPACE -&gt; if (chunkSize &gt;= 24) {
+                        buf.int; buf.int
+                        val prefix = strings.getOrNull(buf.int) ?: "ns"
+                        val uri = strings.getOrNull(buf.int) ?: ""
+                        if (uri.isNotEmpty()) { namespaces[uri] = prefix; pendingNs.add(prefix to uri) }
+                    }
+                    CHUNK_END_NAMESPACE -&gt; {}
+                    CHUNK_START_TAG -&gt; if (chunkSize &gt;= 36) {
+                        buf.int; buf.int
+                        val nsIdx = buf.int; val nameIdx = buf.int
+                        val attrStart = buf.short.toInt() and 0xFFFF
+                        val attrSize = buf.short.toInt() and 0xFFFF
+                        val attrCount = buf.short.toInt() and 0xFFFF
+                        buf.short; buf.short; buf.short
+                        val tagName = strings.getOrNull(nameIdx) ?: "tag"
+                        val tagPrefix = if (nsIdx &gt;= 0) strings.getOrNull(nsIdx)?.let { namespaces[it] } else null
+                        val fullTag = if (!tagPrefix.isNullOrEmpty()) "$tagPrefix:$tagName" else tagName
+                        repeat(indent.coerceAtMost(20)) { out.append("  ") }
+                        out.append("&lt;").append(fullTag)
+                        for ((p, u) in pendingNs) out.append(" xmlns:$p=\"${escapeXml(u)}\"")
+                        pendingNs.clear()
+                        val attrOffset = chunkStart + 16 + attrStart
+                        val stride = if (attrSize &gt;= 20) attrSize else 20
+                        for (i in 0 until attrCount) {
+                            val pos = attrOffset + i * stride
+                            if (pos + 20 &gt; chunkStart + chunkSize) break
+                            buf.position(pos)
+                            val aNs = buf.int; val aNameIdx = buf.int; val rawIdx = buf.int
+                            buf.short; buf.get()
+                            val vType = buf.get().toInt() and 0xFF
+                            val vData = buf.int
+                            val aName = strings.getOrNull(aNameIdx) ?: "attr_$i"
+                            val aPrefix = if (aNs &gt;= 0) strings.getOrNull(aNs)?.let { namespaces[it] } else null
+                            val fullAttr = if (!aPrefix.isNullOrEmpty()) "$aPrefix:$aName" else aName
+                            val vStr = if (rawIdx in strings.indices) strings[rawIdx] else when (vType) {
+                                0x03 -&gt; strings.getOrNull(vData) ?: ""
+                                0x01 -&gt; "@0x${Integer.toHexString(vData)}"
+                                0x02 -&gt; "?0x${Integer.toHexString(vData)}"
+                                0x12 -&gt; if (vData != 0) "true" else "false"
+                                0x10 -&gt; vData.toString()
+                                else -&gt; if (aName.contains("SdkVersion", true)) vData.toString() else "0x${Integer.toHexString(vData)}"
+                            }
+                            if (attrCount &gt; 2) { out.append("\n"); repeat((indent + 1).coerceAtMost(20)) { out.append("  ") } } else out.append(" ")
+                            out.append("$fullAttr=\"${escapeXml(vStr)}\"")
+                        }
+                        out.append("&gt;\n"); indent++
+                    }
+                    CHUNK_END_TAG -&gt; if (chunkSize &gt;= 24) {
+                        buf.int; buf.int
+                        val nsIdx = buf.int; val nameIdx = buf.int
+                        val tagName = strings.getOrNull(nameIdx) ?: "tag"
+                        val tagPrefix = if (nsIdx &gt;= 0) strings.getOrNull(nsIdx)?.let { namespaces[it] } else null
+                        val fullTag = if (!tagPrefix.isNullOrEmpty()) "$tagPrefix:$tagName" else tagName
+                        indent = (indent - 1).coerceAtLeast(0)
+                        repeat(indent.coerceAtMost(20)) { out.append("  ") }
+                        out.append("&lt;/$fullTag&gt;\n")
+                    }
+                    CHUNK_TEXT -&gt; if (chunkSize &gt;= 28) {
+                        buf.int; buf.int
+                        val text = strings.getOrNull(buf.int)
+                        if (!text.isNullOrBlank()) {
+                            repeat(indent.coerceAtMost(20)) { out.append("  ") }
+                            out.append(escapeXml(text.trim())).append("\n")
+                        }
+                    }
+                }
+                buf.position(chunkStart + chunkSize)
+            }
+            out.toString()
+        } catch (e: Exception) { "&lt;!-- Failed to decode binary XML: ${e.message} --&gt;\n" }
+    }
+
+    private fun parseStringPool(bytes: ByteArray, chunkStart: Int, chunkSize: Int): List&lt;String&gt; {
+        val buf = ByteBuffer.wrap(bytes, chunkStart, chunkSize).order(ByteOrder.LITTLE_ENDIAN)
+        buf.int; buf.int
+        val count = buf.int; buf.int
+        val flags = buf.int; val stringsStart = buf.int; buf.int
+        val isUtf8 = (flags and (1 shl 8)) != 0
+        val offsets = IntArray(count) { buf.int }
+        val base = chunkStart + stringsStart
+        return List(count) { i -&gt;
+            var pos = base + offsets[i]
+            if (pos &lt; 0 || pos &gt;= bytes.size) "" else if (isUtf8) {
+                pos += if ((bytes[pos].toInt() and 0x80) != 0) 2 else 1
+                if (pos &gt;= bytes.size) "" else {
+                    var u8 = bytes[pos].toInt() and 0xFF
+                    if ((u8 and 0x80) != 0 &amp;&amp; pos + 1 &lt; bytes.size) { u8 = ((u8 and 0x7F) shl 8) or (bytes[pos + 1].toInt() and 0xFF); pos += 2 } else pos += 1
+                    String(bytes, pos, u8.coerceIn(0, (bytes.size - pos).coerceAtLeast(0)), StandardCharsets.UTF_8)
+                }
+            } else if (pos + 2 &gt; bytes.size) "" else {
+                var len = ((bytes[pos + 1].toInt() and 0xFF) shl 8) or (bytes[pos].toInt() and 0xFF)
+                if ((len and 0x8000) != 0 &amp;&amp; pos + 4 &lt;= bytes.size) {
+                    val low = ((bytes[pos + 3].toInt() and 0xFF) shl 8) or (bytes[pos + 2].toInt() and 0xFF)
+                    len = ((len and 0x7FFF) shl 16) or low; pos += 4
+                } else pos += 2
+                String(bytes, pos, (len * 2).coerceIn(0, (bytes.size - pos).coerceAtLeast(0)), StandardCharsets.UTF_16LE)
+            }
+        }
+    }
+
+    private fun escapeXml(input: String) = input.replace("&amp;", "&amp;amp;").replace("&lt;", "&amp;lt;").replace("&gt;", "&amp;gt;").replace("\"", "&amp;quot;")
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/MainActivity.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/MainActivity.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ErrorOutline
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
+import androidx.core.content.IntentCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.i18n.AppLanguage
+import com.example.i18n.stringsFor
+import com.example.ui.components.CodeViewerDialog
+import com.example.ui.screens.HomeScreen
+import com.example.ui.screens.InspectionScreen
+import com.example.ui.theme.CodeLensTheme
+import com.example.viewmodel.MainViewModel
+import com.example.viewmodel.ScreenState
+
+class MainActivity : ComponentActivity() {
+    private val viewModel: MainViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        handleIncomingIntent(intent)
+        setContent {
+            val isDarkTheme by viewModel.isDarkTheme.collectAsStateWithLifecycle()
+            val language by viewModel.language.collectAsStateWithLifecycle()
+            val strings = remember(language) { stringsFor(language) }
+            val layoutDirection = if (language == AppLanguage.KURDISH) LayoutDirection.Rtl else LayoutDirection.Ltr
+            CodeLensTheme(darkTheme = isDarkTheme) {
+                CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+                    CodeLensAppRoot(viewModel = viewModel, language = language, isDarkTheme = isDarkTheme, strings = strings)
+                }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIncomingIntent(intent)
+    }
+
+    private fun handleIncomingIntent(intent: Intent?) {
+        if (intent == null) return
+        val uri: Uri? = when (intent.action) {
+            Intent.ACTION_SEND -&gt; IntentCompat.getParcelableExtra(intent, Intent.EXTRA_STREAM, Uri::class.java)
+            Intent.ACTION_VIEW -&gt; intent.data
+            else -&gt; null
+        }
+        if (uri != null) viewModel.inspectFromUri(uri)
+    }
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/engine/ExportManager.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/engine/ExportManager.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.engine
+
+import android.content.ContentValues
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
+import androidx.core.content.FileProvider
+import com.example.model.ApkAnalysisResult
+import com.example.model.FileCategory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import java.util.zip.ZipOutputStream
+
+class ExportManager(private val context: Context) {
+    suspend fun saveHtmlToDownloads(result: ApkAnalysisResult): Result&lt;String&gt; = withContext(Dispatchers.IO) {
+        runCatching {
+            val safeName = sanitizeFilename(result.appName.ifBlank { result.packageName })
+            saveBytesToDownloads("index.html", "text/html", result.generatedHtmlReport.toByteArray(Charsets.UTF_8), safeName)
+        }
+    }
+
+    suspend fun saveZipBundleToDownloads(result: ApkAnalysisResult): Result&lt;String&gt; = withContext(Dispatchers.IO) {
+        runCatching {
+            val safeName = sanitizeFilename(result.appName.ifBlank { result.packageName })
+            val fileName = "${safeName}_source_bundle.zip"
+            val tempZip = File(getExportCacheDir(), fileName)
+            writeZipBundleToFile(result, tempZip)
+            saveBytesToDownloads(fileName, "application/zip", tempZip.readBytes())
+        }
+    }
+
+    private fun saveBytesToDownloads(fileName: String, mimeType: String, bytes: ByteArray, subFolder: String? = null): String {
+        val folderSuffix = if (!subFolder.isNullOrBlank()) "/$subFolder" else ""
+        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.Q) {
+            val values = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+                put(MediaStore.MediaColumns.RELATIVE_PATH, "${Environment.DIRECTORY_DOWNLOADS}/CodeLens$folderSuffix")
+                put(MediaStore.MediaColumns.IS_PENDING, 1)
+            }
+            val resolver = context.contentResolver
+            val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values) ?: error("Failed to create download")
+            resolver.openOutputStream(uri)?.use { it.write(bytes) } ?: error("Failed to write file")
+            values.clear(); values.put(MediaStore.MediaColumns.IS_PENDING, 0); resolver.update(uri, values, null, null)
+            return "Downloads/CodeLens$folderSuffix/$fileName"
+        } else {
+            val dir = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "CodeLens$folderSuffix").apply { mkdirs() }
+            val outFile = File(dir, fileName)
+            outFile.writeBytes(bytes)
+            return outFile.absolutePath
+        }
+    }
+
+    private fun writeZipBundleToFile(result: ApkAnalysisResult, outFile: File) {
+        ZipOutputStream(FileOutputStream(outFile)).use { zos -&gt;
+            zos.putNextEntry(ZipEntry("index.html")); zos.write(result.generatedHtmlReport.toByteArray(Charsets.UTF_8)); zos.closeEntry()
+            zos.putNextEntry(ZipEntry("AndroidManifest_decoded.xml")); zos.write(result.decodedManifestXml.toByteArray(Charsets.UTF_8)); zos.closeEntry()
+            zos.putNextEntry(ZipEntry("dex_classes_outline.txt")); zos.write(result.dexAnalysis.sampleClassOutline.toByteArray(Charsets.UTF_8)); zos.closeEntry()
+        }
+    }
+
+    private fun getExportCacheDir() = File(context.cacheDir, "exports").apply { mkdirs() }
+    private fun sanitizeFilename(raw: String) = raw.replace(Regex("[^a-zA-Z0-9._-]"), "_").trim('_').ifBlank { "app" }
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/engine/DexInspector.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/engine/DexInspector.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.engine
+
+import com.example.model.DexAnalysisResult
+import com.example.model.DexFileSummary
+import com.example.model.DexPackageSummary
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+
+object DexInspector {
+    fun inspectMultipleDex(dexBytesList: List&lt;Pair&lt;String, ByteArray&gt;&gt;): DexAnalysisResult {
+        val summaries = mutableListOf&lt;DexFileSummary&gt;()
+        val packageToClasses = linkedMapOf&lt;String, LinkedHashSet&lt;String&gt;&gt;()
+        val frameworks = linkedSetOf&lt;String&gt;()
+        val urls = linkedSetOf&lt;String&gt;()
+        var totalClasses = 0; var totalMethods = 0; var totalStrings = 0
+        for ((fileName, bytes) in dexBytesList) {
+            val parsed = inspectSingleDex(fileName, bytes) ?: continue
+            summaries.add(parsed.summary)
+            totalClasses += parsed.summary.classCount
+            totalMethods += parsed.summary.methodCount
+            totalStrings += parsed.summary.stringCount
+            frameworks.addAll(parsed.frameworks)
+            urls.addAll(parsed.urls)
+            for (desc in parsed.classNames) {
+                val fqcn = descriptorToClassName(desc)
+                if (fqcn.isBlank()) continue
+                val pkg = fqcn.substringBeforeLast('.', "(default)")
+                val set = packageToClasses.getOrPut(pkg) { linkedSetOf() }
+                if (set.size &lt; 40) set.add(fqcn.substringAfterLast('.'))
+            }
+        }
+        val sortedPackages = packageToClasses.entries.sortedWith(
+            compareByDescending&lt;Map.Entry&lt;String, LinkedHashSet&lt;String&gt;&gt;&gt; {
+                !it.key.startsWith("androidx.") &amp;&amp; !it.key.startsWith("android.") &amp;&amp; !it.key.startsWith("kotlin") &amp;&amp; !it.key.startsWith("com.google.")
+            }.thenByDescending { it.value.size }
+        ).take(45).map { (pkg, classes) -&gt; DexPackageSummary(pkg, classes.size, classes.toList().take(12)) }
+        val outline = buildString {
+            appendLine("// Extracted DEX Class &amp; Package Outline")
+            appendLine("// Total DEX files: ${summaries.size}, Classes: $totalClasses, Methods: $totalMethods\n")
+            sortedPackages.take(25).forEach { pkg -&gt;
+                appendLine("package ${pkg.packageName};")
+                pkg.sampleClasses.take(8).forEach { cls -&gt; appendLine("    public class $cls { /* Dalvik bytecode */ }") }
+                appendLine()
+            }
+        }
+        return DexAnalysisResult(summaries, totalClasses, totalMethods, totalStrings, sortedPackages, frameworks, outline, urls.take(25))
+    }
+
+    fun formatDexFilePreview(fileName: String, bytes: ByteArray): String {
+        val parsed = inspectSingleDex(fileName, bytes) ?: return "Invalid DEX file: $fileName"
+        val s = parsed.summary
+        return buildString {
+            appendLine("// DEX File: ${s.fileName} (v${s.dexVersion})")
+            appendLine("// Size: ${s.fileSizeBytes} bytes | Classes: ${s.classCount} | Methods: ${s.methodCount} | Strings: ${s.stringCount}\n")
+            parsed.classNames.take(250).forEach { desc -&gt;
+                val fqcn = descriptorToClassName(desc)
+                if (fqcn.isNotEmpty()) appendLine("class $fqcn")
+            }
+        }
+    }
+
+    private data class SingleDexParsed(val summary: DexFileSummary, val classNames: List&lt;String&gt;, val frameworks: Set&lt;String&gt;, val urls: Set&lt;String&gt;)
+
+    private fun inspectSingleDex(fileName: String, bytes: ByteArray): SingleDexParsed? {
+        if (bytes.size &lt; 112 || bytes[0] != 'd'.code.toByte() || bytes[1] != 'e'.code.toByte() || bytes[2] != 'x'.code.toByte() || bytes[3] != '\n'.code.toByte()) return null
+        val version = String(bytes, 4, 3, Charsets.US_ASCII)
+        val buf = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
+        val fileSize = buf.getInt(32); val stringIdsSize = buf.getInt(56).coerceAtLeast(0); val stringIdsOff = buf.getInt(60).coerceAtLeast(0)
+        val typeIdsSize = buf.getInt(64).coerceAtLeast(0); val typeIdsOff = buf.getInt(68).coerceAtLeast(0)
+        val fieldIdsSize = buf.getInt(80).coerceAtLeast(0); val methodIdsSize = buf.getInt(88).coerceAtLeast(0)
+        val classDefsSize = buf.getInt(96).coerceAtLeast(0); val classDefsOff = buf.getInt(100).coerceAtLeast(0)
+        val frameworks = linkedSetOf&lt;String&gt;(); val urls = linkedSetOf&lt;String&gt;(); val classNames = ArrayList&lt;String&gt;(minOf(classDefsSize, 1500))
+        fun readStr(idx: Int): String? {
+            if (idx !in 0 until stringIdsSize) return null
+            val offPos = stringIdsOff + idx * 4; if (offPos + 4 &gt; bytes.size) return null
+            val dataOff = buf.getInt(offPos); if (dataOff !in 0 until bytes.size) return null
+            var pos = dataOff
+            while (pos &lt; bytes.size) { val b = bytes[pos++].toInt() and 0xFF; if ((b and 0x80) == 0) break }
+            val start = pos; val maxEnd = (start + 512).coerceAtMost(bytes.size)
+            while (pos &lt; maxEnd &amp;&amp; bytes[pos].toInt() != 0) pos++
+            return String(bytes, start, (pos - start).coerceAtLeast(0), Charsets.UTF_8)
+        }
+        for (i in 0 until minOf(classDefsSize, 2500)) {
+            val cdPos = classDefsOff + i * 32; if (cdPos + 4 &gt; bytes.size) break
+            val typeIdx = buf.getInt(cdPos); if (typeIdx !in 0 until typeIdsSize) continue
+            val tPos = typeIdsOff + typeIdx * 4; if (tPos + 4 &gt; bytes.size) continue
+            val desc = readStr(buf.getInt(tPos)) ?: continue
+            classNames.add(desc); checkMarker(desc, frameworks)
+        }
+        val step = if (stringIdsSize &gt; 18000) stringIdsSize / 18000 else 1
+        var idx = 0
+        while (idx &lt; stringIdsSize) {
+            val s = readStr(idx)
+            if (s != null) {
+                checkMarker(s, frameworks)
+                if ((s.startsWith("https://") || s.startsWith("http://")) &amp;&amp; s.length in 10..140 &amp;&amp; !s.contains("schemas.android.com") &amp;&amp; urls.size &lt; 30) urls.add(s)
+            }
+            idx += step
+        }
+        return SingleDexParsed(DexFileSummary(fileName, version, fileSize, stringIdsSize, typeIdsSize, fieldIdsSize, methodIdsSize, classDefsSize), classNames, frameworks, urls)
+    }
+
+    private fun checkMarker(str: String, frameworks: MutableSet&lt;String&gt;) {
+        when {
+            str.contains("Lkotlin/Metadata;") || str.startsWith("Lkotlin/") || str.startsWith("Lkotlinx/") -&gt; frameworks.add("Kotlin")
+            str.startsWith("Landroidx/compose/") -&gt; frameworks.add("Jetpack Compose")
+            str.startsWith("Lio/flutter/") -&gt; frameworks.add("Flutter")
+            str.startsWith("Lcom/facebook/react/") -&gt; frameworks.add("React Native")
+            str.startsWith("Lorg/apache/cordova/") || str.startsWith("Lcom/getcapacitor/") -&gt; frameworks.add("Cordova / Capacitor")
+            str.startsWith("Landroid/webkit/WebView") || str.contains("WebViewClient") -&gt; frameworks.add("Android WebView")
+            str.startsWith("Lcom/unity3d/") -&gt; frameworks.add("Unity")
+            str.startsWith("Landroidx/appcompat/") || str.startsWith("Lcom/google/android/material/") -&gt; frameworks.add("Android XML Views / Material")
+        }
+    }
+
+    private fun descriptorToClassName(desc: String) = if (desc.startsWith("L") &amp;&amp; desc.endsWith(";")) desc.substring(1, desc.length - 1).replace('/', '.') else ""
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/engine/ApkAnalyzerEngine.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/engine/ApkAnalyzerEngine.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.engine
+
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Build
+import android.provider.OpenableColumns
+import com.example.model.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
+import java.util.zip.ZipFile
+
+class ApkAnalyzerEngine(private val context: Context) {
+    suspend fun loadInstalledLauncherApps(): List&lt;InstalledAppItem&gt; = withContext(Dispatchers.IO) {
+        val pm = context.packageManager
+        val intent = Intent(Intent.ACTION_MAIN).apply { addCategory(Intent.CATEGORY_LAUNCHER) }
+        val resolveInfos = if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.TIRAMISU) {
+            pm.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(0L))
+        } else {
+            @Suppress("DEPRECATION") pm.queryIntentActivities(intent, 0)
+        }
+        val seen = HashSet&lt;String&gt;()
+        resolveInfos.mapNotNull { ri -&gt;
+            val appInfo = ri.activityInfo?.applicationInfo ?: return@mapNotNull null
+            val pkg = appInfo.packageName ?: return@mapNotNull null
+            if (!seen.add(pkg)) return@mapNotNull null
+            val apkFile = File(appInfo.sourceDir ?: return@mapNotNull null)
+            if (!apkFile.exists() || !apkFile.canRead()) return@mapNotNull null
+            val label = ri.loadLabel(pm)?.toString()?.takeIf { it.isNotBlank() } ?: pkg
+            InstalledAppItem(label, pkg, "1.0", apkFile.absolutePath, apkFile.length(), runCatching { ri.loadIcon(pm) }.getOrNull())
+        }.sortedBy { it.appName.lowercase() }
+    }
+
+    suspend fun copyUriToInspectableApk(uri: Uri): File = withContext(Dispatchers.IO) {
+        val displayName = runCatching {
+            context.contentResolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)?.use { c -&gt;
+                if (c.moveToFirst()) c.getString(0) else null
+            }
+        }.getOrNull() ?: "imported_app.apk"
+        val cacheDir = File(context.cacheDir, "inspected_apks").apply { mkdirs() }
+        val destFile = File(cacheDir, "${System.currentTimeMillis()}_${displayName.replace(Regex("[^a-zA-Z0-9._-]"), "_")}")
+        context.contentResolver.openInputStream(uri)?.use { input -&gt; FileOutputStream(destFile).use { input.copyTo(it) } }
+            ?: throw IllegalStateException("Cannot open selected file")
+        destFile
+    }
+
+    suspend fun analyzeApk(apkPath: String, fallbackAppName: String? = null, fallbackIcon: Drawable? = null): ApkAnalysisResult = withContext(Dispatchers.IO) {
+        val file = File(apkPath)
+        val pm = context.packageManager
+        val flags = (PackageManager.GET_ACTIVITIES or PackageManager.GET_SERVICES or PackageManager.GET_PERMISSIONS).toLong()
+        val archiveInfo = if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.TIRAMISU) pm.getPackageArchiveInfo(apkPath, PackageManager.PackageInfoFlags.of(flags))
+        else @Suppress("DEPRECATION") pm.getPackageArchiveInfo(apkPath, flags.toInt())
+        val appInfo = archiveInfo?.applicationInfo?.apply { sourceDir = apkPath; publicSourceDir = apkPath }
+        val resolvedName = appInfo?.let { runCatching { it.loadLabel(pm).toString() }.getOrNull() }?.takeIf { it.isNotBlank() } ?: fallbackAppName ?: file.nameWithoutExtension
+        val pkgName = archiveInfo?.packageName ?: appInfo?.packageName ?: "unknown.archive"
+        ZipFile(file).use { zip -&gt;
+            val entries = mutableListOf&lt;ApkFileEntry&gt;()
+            val dexBytesList = mutableListOf&lt;Pair&lt;String, ByteArray&gt;&gt;()
+            var decodedManifestXml = "&lt;!-- AndroidManifest.xml not found --&gt;"
+            val abis = linkedSetOf&lt;String&gt;()
+            val zipEnum = zip.entries()
+            while (zipEnum.hasMoreElements()) {
+                val ze = zipEnum.nextElement(); if (ze.isDirectory) continue
+                val path = ze.name; val name = path.substringAfterLast('/'); val ext = name.substringAfterLast('.', "").lowercase()
+                val category = when {
+                    ext in setOf("html", "htm", "css", "js", "json", "svg", "txt", "md", "properties") || path.startsWith("assets/www/") -&gt; FileCategory.WEB_HTML
+                    ext == "xml" -&gt; FileCategory.XML_MANIFEST
+                    ext == "dex" || path.endsWith(".kotlin_module") || path.startsWith("kotlin/") -&gt; FileCategory.DEX_CODE
+                    ext == "so" -&gt; FileCategory.NATIVE_LIB
+                    else -&gt; FileCategory.ASSETS_MEDIA
+                }
+                entries.add(ApkFileEntry(path, name, ze.size.coerceAtLeast(0L), ze.compressedSize.coerceAtLeast(0L), category, ext, ext == "xml"))
+                if (path == "AndroidManifest.xml") decodedManifestXml = BinaryXmlDecoder.decode(zip.getInputStream(ze).use { it.readBytes() })
+                if (path.startsWith("lib/") &amp;&amp; ext == "so") path.split('/').getOrNull(1)?.let { abis.add(it) }
+                if (ext == "dex" &amp;&amp; !path.contains('/') &amp;&amp; dexBytesList.size &lt; 4 &amp;&amp; ze.size in 112..18_000_000) {
+                    dexBytesList.add(path to zip.getInputStream(ze).use { it.readBytes() })
+                }
+            }
+            val dexResult = DexInspector.inspectMultipleDex(dexBytesList)
+            val techDetections = listOfNotNull(
+                if ("Kotlin" in dexResult.detectedFrameworks || entries.any { it.path.endsWith(".kotlin_module") }) TechDetection("Kotlin", "زمانێ فەرمی یێ ئەندرۆید", "Kotlin DEX Bytecode", 95, TechBadgeType.KOTLIN, true, listOf("kotlin.Metadata / .kotlin_module")) else null,
+                if (entries.any { it.extension == "dex" }) TechDetection("Java / Dalvik Bytecode", "کۆدێ Java / DEX", "Compiled .dex bytecode", 90, TechBadgeType.JAVA, false, listOf("classes.dex")) else null,
+                if (entries.any { it.extension in setOf("html", "htm", "js", "css") }) TechDetection("HTML5 / CSS / JS", "فایلێن HTML و وێب", "Embedded HTML/CSS/JS assets", 92, TechBadgeType.HTML_WEB, true, listOf("assets/*.html")) else null,
+                if (entries.any { it.extension == "so" }) TechDetection("Native C / C++ (NDK)", "کۆدێ C/C++", "Native ELF shared libraries", 92, TechBadgeType.NATIVE_CPP, false, abis.toList()) else null
+            )
+            val html = HtmlReportGenerator.generateHtmlReport(resolvedName, pkgName, archiveInfo?.versionName ?: "1.0", 1L, 24, 36, file.length(), techDetections, decodedManifestXml, archiveInfo?.requestedPermissions?.toList().orEmpty(), archiveInfo?.activities?.map { it.name }.orEmpty(), abis.toList(), entries, dexResult, zip)
+            ApkAnalysisResult(apkPath, resolvedName, pkgName, archiveInfo?.versionName ?: "1.0", 1L, 24, 36, file.length(), null, techDetections, decodedManifestXml, archiveInfo?.requestedPermissions?.toList().orEmpty(), archiveInfo?.activities?.map { it.name }.orEmpty(), archiveInfo?.services?.map { it.name }.orEmpty(), abis.toList(), entries, dexResult, html)
+        }
+    }
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/viewmodel/MainViewModel.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/viewmodel/MainViewModel.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>package com.example.viewmodel
+
+import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.engine.ApkAnalyzerEngine
+import com.example.engine.ExportManager
+import com.example.i18n.AppLanguage
+import com.example.i18n.stringsFor
+import com.example.model.*
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+
+enum class InspectionTab { TECH_STACK, FILES_CODE, HTML_REPORT, MANIFEST_DEX }
+
+sealed interface ScreenState {
+    data object Home : ScreenState
+    data class Analyzing(val targetName: String) : ScreenState
+    data class Result(val analysis: ApkAnalysisResult) : ScreenState
+    data class Error(val message: String) : ScreenState
+}
+
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private val analyzer = ApkAnalyzerEngine(application)
+    private val exporter = ExportManager(application)
+    private val _language = MutableStateFlow(AppLanguage.KURDISH)
+    val language: StateFlow&lt;AppLanguage&gt; = _language.asStateFlow()
+    private val _isDarkTheme = MutableStateFlow(true)
+    val isDarkTheme: StateFlow&lt;Boolean&gt; = _isDarkTheme.asStateFlow()
+    private val _screenState = MutableStateFlow&lt;ScreenState&gt;(ScreenState.Home)
+    val screenState: StateFlow&lt;ScreenState&gt; = _screenState.asStateFlow()
+    private val _installedApps = MutableStateFlow&lt;List&lt;InstalledAppItem&gt;&gt;(emptyList())
+    private val _appSearchQuery = MutableStateFlow("")
+    val filteredApps = combine(_installedApps, _appSearchQuery) { apps, q -&gt;
+        if (q.isBlank()) apps else apps.filter { it.appName.contains(q, true) || it.packageName.contains(q, true) }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    init { viewModelScope.launch { _installedApps.value = runCatching { analyzer.loadInstalledLauncherApps() }.getOrDefault(emptyList()) } }
+    fun toggleLanguage() { _language.value = if (_language.value == AppLanguage.KURDISH) AppLanguage.ENGLISH else AppLanguage.KURDISH }
+    fun toggleTheme() { _isDarkTheme.value = !_isDarkTheme.value }
+    fun inspectFromUri(uri: Uri) {
+        viewModelScope.launch {
+            _screenState.value = ScreenState.Analyzing("APK")
+            runCatching { analyzer.analyzeApk(analyzer.copyUriToInspectableApk(uri).absolutePath) }
+                .onSuccess { _screenState.value = ScreenState.Result(it) }
+                .onFailure { _screenState.value = ScreenState.Error(it.message ?: "Error") }
+        }
+    }
+    fun downloadHtmlReport() {
+        val current = (_screenState.value as? ScreenState.Result)?.analysis ?: return
+        viewModelScope.launch { exporter.saveHtmlToDownloads(current) }
+    }
+}</code></pre>
+    </article>
+
+    <article class="file-card" data-path="app/src/main/java/com/example/ui/screens/HomeScreen.kt &amp; InspectionScreen.kt">
+      <div class="file-head"><span class="file-path">app/src/main/java/com/example/ui/screens/HomeScreen.kt &amp; InspectionScreen.kt</span><button class="btn btn-sec" onclick="copyFile(this)">Copy</button></div>
+      <pre><code>// Jetpack Compose UI Screens:
+// 1. HomeScreen.kt — Cyber-Craft Hero Card + Pick APK/ZIP + Test Demo Scan + Searchable Installed Apps List
+// 2. InspectionScreen.kt — 4 Tabs (Tech Stack, Files &amp; Code, HTML Report Live WebView/Raw, Manifest &amp; DEX)
+//    plus persistent bottom Download index.html, Download ZIP, Save As..., and Share Bar.
+// 3. CodeViewerDialog.kt — Full-screen LTR monospace code viewer with line numbers, HTML preview toggle, Image viewer &amp; single-file download.
+// 4. CommonComponents.kt — StudioTopBar, DrawableAppIcon, CodeBlockCard, HtmlWebViewPreview.</code></pre>
+    </article>
+
+  </div>
+</main>
+<script>
+  (function buildToc() {
+    var toc = document.getElementById('tocList');
+    var cards = document.querySelectorAll('.file-card');
+    cards.forEach(function(card, idx) {
+      var p = card.getAttribute('data-path');
+      var id = 'file-' + idx;
+      card.id = id;
+      var a = document.createElement('a');
+      a.href = '#' + id;
+      a.textContent = p;
+      toc.appendChild(a);
+    });
+  })();
+
+  function filterCodeFiles(q) {
+    var term = q.toLowerCase();
+    document.querySelectorAll('.file-card').forEach(function(card) {
+      var match = card.getAttribute('data-path').toLowerCase().indexOf(term) !== -1 ||
+                  card.textContent.toLowerCase().indexOf(term) !== -1;
+      card.style.display = match ? '' : 'none';
+    });
+  }
+
+  function copyFile(btn) {
+    var code = btn.closest('.file-card').querySelector('pre code').textContent;
+    navigator.clipboard.writeText(code).then(function() {
+      var old = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = old; }, 1400);
+    });
+  }
+
+  function downloadThisHtml() {
+    var blob = new Blob([document.documentElement.outerHTML], { type: 'text/html;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CodeLens</string>
+    <string name="cd_hero_banner">CodeLens APK and code inspector studio banner</string>
+    <string name="cd_app_icon">Application icon</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_download_html">Download HTML report</string>
+    <string name="cd_download_zip">Download ZIP source bundle</string>
+    <string name="cd_share_report">Share exported report</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_clear_search">Clear search</string>
+    <string name="cd_toggle_language">Switch language</string>
+    <string name="cd_toggle_theme">Toggle dark or light theme</string>
+</resources>

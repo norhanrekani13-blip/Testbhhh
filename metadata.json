@@ -1,0 +1,6 @@
+{
+  "name": "CodeLens",
+  "description": "Inspect Android APKs and installed apps to detect programming languages and frameworks, decode binary manifests, browse all internal files and code, view interactive HTML code reports, and download HTML or ZIP source bundles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
